@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="FSKTM IT Club - an example student community homepage created for Web Development Lab 4.">
+  <title>FSKTM IT Club | Learn. Build. Connect.</title>
+  <style>
+    /* LAB 4 - CSS FLEXBOX: All styling is internal, as required. */
+    /* 1. Page reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --navy: #102947;
+      --navy-dark: #0a203a;
+      --blue: #1b4a75;
+      --cyan: #61e6e1;
+      --mint: #e6faf5;
+      --paper: #ffffff;
+      --text: #21364c;
+      --muted: #62768c;
+      --line: #e6edf3;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      background: #f2f6f9;
+      color: var(--text);
+      font-family: "Segoe UI", Arial, sans-serif;
+      line-height: 1.65;
+    }
+    a { color: inherit; }
+    a:focus-visible { outline: 3px solid #009e9d; outline-offset: 3px; }
+
+    /* 2. Main container: five-part column layout */
+    .container {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      min-height: 600px;
+      max-width: 1220px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    /* 3. Header / logo region (minimum 100px) */
+    .logo {
+      min-height: 100px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+      border-radius: 18px;
+      padding: 28px 38px;
+      background: linear-gradient(115deg, #0b284a 0%, #12345a 65%, #176b83 100%);
+      color: white;
+      isolation: isolate;
+    }
+    .logo::after {
+      content: "";
+      position: absolute;
+      right: -75px;
+      top: -135px;
+      width: 470px;
+      height: 430px;
+      border: 32px solid rgba(101, 232, 222, .15);
+      border-radius: 80px;
+      transform: rotate(28deg);
+      z-index: -1;
+    }
+    .brand-line { display: flex; gap: 17px; align-items: center; }
+    .brand-mark {
+      width: 70px;
+      height: 70px;
+      flex: 0 0 70px;
+      border: 2px solid rgba(255,255,255,.35);
+      border-radius: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255,255,255,.09);
+      color: var(--cyan);
+      font-size: 26px;
+      font-weight: 800;
+      letter-spacing: -3px;
+    }
+    .brand-kicker {
+      font-size: 12px;
+      letter-spacing: 2.4px;
+      text-transform: uppercase;
+      color: #a6d8e8;
+      font-weight: 700;
+    }
+    .logo h1 { font-size: clamp(28px, 3vw, 42px); line-height: 1.12; margin: 5px 0; letter-spacing: -1.2px; }
+    .logo p { color: #c6dce9; font-size: 14px; }
+    .logo-art { display: flex; align-items: center; gap: 11px; flex: 0 0 auto; }
+    .logo-art span { display: block; width: 23px; height: 23px; border: 3px solid var(--cyan); border-radius: 50%; box-shadow: 0 0 0 9px rgba(97,230,225,.09); }
+    .logo-art span:nth-child(2) { transform: translateY(-28px); }
+    .logo-art span:nth-child(3) { transform: translateY(20px); }
+
+    /* 4. Navigation region (minimum 50px) */
+    .navigation {
+      min-height: 50px;
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      background: var(--navy);
+      border-radius: 12px;
+      padding: 7px 12px;
+    }
+    .nav-links { display: flex; flex-wrap: wrap; gap: 3px; list-style: none; }
+    .nav-links a { display: block; padding: 9px 16px; text-decoration: none; color: #e2ecf4; font-size: 14px; font-weight: 600; border-radius: 8px; transition: background .2s, color .2s; }
+    .nav-links a:hover, .nav-links a[aria-current="page"] { background: #286083; color: #fff; }
+    .nav-tag { color: #92d9d8; font-size: 12px; font-weight: 700; letter-spacing: 1px; padding-right: 12px; }
+
+    /* 5. Content region: row Flexbox, sidebar 20%, body 70% */
+    .content {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: stretch;
+      min-height: 400px;
+      margin-top: 10px;
+      gap: 20px;
+    }
+    .side-bar {
+      width: 20%;
+      min-height: 400px;
+      background: #e3eef2;
+      border: 1px solid #d5e6eb;
+      border-radius: 14px;
+      padding: 23px 18px;
+    }
+    .body-area {
+      width: 70%;
+      min-height: 400px;
+      background: var(--paper);
+      border: 1px solid #e3eaf1;
+      border-radius: 14px;
+      padding: 30px 34px 34px;
+      box-shadow: 0 10px 35px rgba(23,50,77,.035);
+    }
+    .side-label, .eyebrow { color: #126a79; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 1.7px; }
+    .side-bar h2 { font-size: 22px; letter-spacing: -.6px; color: var(--navy); margin: 7px 0 10px; }
+    .side-bar p { font-size: 13px; line-height: 1.65; color: #546b7d; }
+    .side-links { margin: 18px 0; list-style: none; display: flex; flex-direction: column; gap: 9px; }
+    .side-links a { display: flex; align-items: center; gap: 7px; font-size: 13px; font-weight: 650; color: #174b67; text-decoration: none; overflow-wrap: anywhere; }
+    .side-links a::before { content: "↗"; color: #079d99; font-weight: bold; }
+    .side-links a:hover { text-decoration: underline; }
+    .side-divider { height: 1px; background: #ccdde3; margin: 20px 0; }
+    .side-note { border-radius: 11px; background: #fff; border: 1px solid #d9e7e9; padding: 13px; font-size: 12px; color: #466579; }
+    .side-note strong { display: block; color: #133853; margin-bottom: 5px; }
+
+    .welcome-badge { display: inline-block; background: var(--mint); border: 1px solid #c9f1e8; border-radius: 30px; padding: 5px 11px; }
+    .body-area h2 { font-size: clamp(24px, 2.7vw, 34px); line-height: 1.2; letter-spacing: -.95px; color: var(--navy); margin: 15px 0 11px; }
+    .intro { color: #546a7e; font-size: 15px; max-width: 730px; }
+    .body-area section + section { border-top: 1px solid var(--line); margin-top: 24px; padding-top: 22px; }
+    .body-area h3 { color: var(--navy); font-size: 19px; letter-spacing: -.35px; margin-bottom: 7px; }
+    .body-area section p { font-size: 14px; color: #556a7b; }
+    .activity-list { display: flex; flex-direction: column; gap: 10px; margin-top: 13px; padding-left: 0; list-style: none; }
+    .activity-list li { display: flex; gap: 10px; align-items: baseline; font-size: 14px; color: #39546b; }
+    .activity-list li::before { content: "●"; color: #0daba6; font-size: 8px; flex: 0 0 auto; }
+    .activity-list strong { color: #173e60; }
+    .info-cards { display: flex; gap: 12px; margin-top: 15px; }
+    .info-card { flex: 1 1 0; padding: 15px; background: #f5fafb; border: 1px solid #e0eef0; border-radius: 11px; }
+    .info-card .card-icon { color: #008f93; font-size: 21px; line-height: 1; margin-bottom: 8px; }
+    .info-card strong { display: block; font-size: 13px; color: #1a3d57; margin-bottom: 2px; }
+    .info-card p { font-size: 12px !important; }
+    .body-area a.text-link { color: #087b8c; text-underline-offset: 3px; }
+    .contact-row { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 9px; }
+    .contact-pill { display: inline-block; padding: 8px 12px; border: 1px solid #d8e8eb; border-radius: 9px; background: #f6fafb; font-size: 12px; color: #426276; }
+
+    /* 6. Footer region (minimum 20px) */
+    .footer {
+      min-height: 20px;
+      margin-top: 10px;
+      padding: 16px 22px;
+      background: var(--navy);
+      border-radius: 11px;
+      color: #d5e2ef;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+    }
+    .footer a { color: #8cece5; text-decoration: none; }
+
+    /* 7. Responsive design: regions stack on smaller screens */
+    @media (max-width: 900px) {
+      .content { gap: 14px; }
+      .side-bar { width: 27%; }
+      .body-area { width: 70%; padding: 25px; }
+      .logo-art { display: none; }
+    }
+    @media (max-width: 640px) {
+      .container { padding: 12px; }
+      .logo { padding: 24px 18px; border-radius: 13px; }
+      .brand-mark { width: 53px; height: 53px; flex-basis: 53px; font-size: 20px; border-radius: 13px; }
+      .brand-line { gap: 12px; }
+      .logo h1 { font-size: 27px; }
+      .logo p { font-size: 12px; }
+      .navigation { flex-direction: column; align-items: stretch; }
+      .nav-links { justify-content: center; }
+      .nav-links a { padding: 10px 11px; font-size: 13px; }
+      .nav-tag { text-align: center; padding: 0 0 4px; }
+      .content { flex-direction: column; gap: 10px; }
+      .side-bar, .body-area { width: 100%; min-height: 0; }
+      .side-bar { padding: 20px; }
+      .side-links { flex-direction: row; flex-wrap: wrap; gap: 11px 15px; }
+      .body-area { padding: 24px 20px; }
+      .info-cards { flex-direction: column; }
+      .footer { justify-content: center; text-align: center; }
+    }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  </style>
+</head>
+<body>
+  <!-- MAIN CONTAINER: Flexbox column -->
+  <div class="container" id="home">
+    <!-- REGION 1: Logo/Header -->
+    <header class="logo">
+      <div class="brand-line">
+        <div class="brand-mark" aria-hidden="true">IT.</div>
+        <div>
+          <div class="brand-kicker">UTHM · Student Community</div>
+          <h1>FSKTM IT Club</h1>
+          <p>Learn together. Build boldly. Connect beyond the classroom.</p>
+        </div>
+      </div>
+      <div class="logo-art" aria-hidden="true"><span></span><span></span><span></span></div>
+    </header>
+
+    <!-- REGION 2: Navigation -->
+    <nav class="navigation" aria-label="Main navigation">
+      <ul class="nav-links">
+        <li><a href="#home" aria-current="page">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#events">Events</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <span class="nav-tag">IDEAS INTO IMPACT</span>
+    </nav>
+
+    <!-- REGION 3: Content (Flexbox row containing two columns) -->
+    <div class="content">
+      <!-- COLUMN 1: Sidebar, 20% width on desktop -->
+      <aside class="side-bar" aria-labelledby="club-corner">
+        <span class="side-label">Explore more</span>
+        <h2 id="club-corner">Club Corner</h2>
+        <p>Your space to discover activities, improve your skills, and connect with other technology enthusiasts.</p>
+        <ul class="side-links">
+          <li><a href="#events">Upcoming activities</a></li>
+          <li><a href="#resources">Learning resources</a></li>
+          <li><a href="#contact">Join the community</a></li>
+        </ul>
+        <div class="side-divider"></div>
+        <div class="side-note">
+          <strong>Community highlights</strong>
+          Web workshops · Team projects · Tech talks
+        </div>
+      </aside>
+
+      <!-- COLUMN 2: Main body, 70% width on desktop -->
+      <main class="body-area">
+        <span class="eyebrow welcome-badge">Welcome to our community</span>
+        <h2>Discover technology.<br> Create possibilities.</h2>
+        <p class="intro">Welcome to the FSKTM IT Club homepage. This sample student community website brings together people interested in web development, programming, and creative technology projects.</p>
+
+        <section id="about" aria-labelledby="about-title">
+          <h3 id="about-title">About Our Club</h3>
+          <p>Our goal is to help students strengthen practical IT skills through hands-on learning, project collaboration, and knowledge sharing. Whether you are a beginner or already love coding, there is always more to explore.</p>
+        </section>
+
+        <section id="events" aria-labelledby="events-title">
+          <h3 id="events-title">Activities to Explore</h3>
+          <p>Here are examples of activities that a student IT club can organise:</p>
+          <ul class="activity-list">
+            <li><span><strong>HTML &amp; CSS Workshop:</strong> Create your first responsive website.</span></li>
+            <li><span><strong>Hackathon Day:</strong> Work with friends to solve a challenge.</span></li>
+            <li><span><strong>Tech Talk:</strong> Learn from developers and guest speakers.</span></li>
+          </ul>
+        </section>
+
+        <section id="resources" aria-labelledby="resources-title">
+          <h3 id="resources-title">Learning Resources</h3>
+          <p>Start your journey with beginner-friendly tutorials and consistent practice.</p>
+          <div class="info-cards">
+            <div class="info-card"><div class="card-icon" aria-hidden="true">&lt;/&gt;</div><strong>Web fundamentals</strong><p>Build pages using HTML and CSS.</p></div>
+            <div class="info-card"><div class="card-icon" aria-hidden="true">▦</div><strong>Responsive layouts</strong><p>Practise Flexbox and media queries.</p></div>
+            <div class="info-card"><div class="card-icon" aria-hidden="true">◇</div><strong>Team projects</strong><p>Learn to collaborate and share ideas.</p></div>
+          </div>
+        </section>
+
+        <section id="contact" aria-labelledby="contact-title">
+          <h3 id="contact-title">Connect With Us</h3>
+          <p>Interested in learning and creating with other students? Explore the activities above and connect with the FSKTM student community.</p>
+          <div class="contact-row">
+            <span class="contact-pill">Faculty: FSKTM</span>
+            <span class="contact-pill">University: UTHM</span>
+            <span class="contact-pill">Focus: IT &amp; Web Development</span>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <!-- REGION 4: Footer (content contains sidebar + body, giving five visual regions) -->
+    <footer class="footer">
+      <span>© 2026 FSKTM IT Club · Web Development Lab 4 demo.</span>
+      <span>Designed using <strong>HTML + internal CSS Flexbox</strong> · <a href="#home">Back to top ↑</a></span>
+    </footer>
+  </div>
+</body>
+</html>
